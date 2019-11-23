@@ -32,12 +32,27 @@ def bot():
             data = r.json();
             advice = f'{data["slip"]["advice"]}'
             msg.body(advice)
-            print(data)
+        responded = True
+    if 'crypto' in incoming_msg:
+        url = 'https://rest.coinapi.io/v1/exchangerate/BTC/USD'
+        headers = {'X-CoinAPI-Key': 'DB69F134-B4F1-4FFF-8BED-B6D217B9FB1C'}
+        response = requests.get(url, headers=headers)
+        prices = ["The Price of Bitcoin is " + str(response.json()["rate"]) + "$"]
+        url = 'https://rest.coinapi.io/v1/exchangerate/ETH/USD'
+        headers = {'X-CoinAPI-Key': 'DB69F134-B4F1-4FFF-8BED-B6D217B9FB1C'}
+        response = requests.get(url, headers=headers)
+        prices.append("The Price of Etherium is " + str(response.json()["rate"]) + "$")
+        url = 'https://rest.coinapi.io/v1/exchangerate/LTC/USD'
+        headers = {'X-CoinAPI-Key': 'DB69F134-B4F1-4FFF-8BED-B6D217B9FB1C'}
+        response = requests.get(url, headers=headers)
+        prices.append("The Price of Litecoin  is " + str(response.json()["rate"]) + "$")
+        msg.body(prices[0]+'\n'+prices[1]+'\n'+prices[2])
         responded = True
     if not responded:
-        msg.body('I only know about famous quotes and cats, sorry!')
+        msg.body('Im sorry you asked something I do not know')
     return str(resp)
 
 
 if __name__ == '__main__':
     app.run()
+# https://whatsabb-bot-vanguard.herokuapp.com/bot

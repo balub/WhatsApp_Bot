@@ -60,6 +60,10 @@ def bot():
         else:
             msg.body("The Location provided is incorrect")
         responded = True
+    if 'hello' or 'good morning' or 'good night' in incoming_msg:
+        # return a cat pic
+        msg.media('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoSM9gE3sFoLpEPU8OC4E7IwDyXnZT0vGR6h1Q9WEtchEpOKQT&s')
+        responded = True
     if not responded:
         msg.body('Im sorry you asked something I do not know')
     return str(resp)

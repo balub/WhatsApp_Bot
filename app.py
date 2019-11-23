@@ -27,8 +27,8 @@ def bot():
         responded = True
     if 'advice' in incoming_msg:
         # return advice
-        r= requests.get('https://api.adviceslip.com/advice')
-        if r.status_code==200:
+        r = requests.get('https://api.adviceslip.com/advice')
+        if r.status_code == 200:
             data = r.json();
             advice = f'{data["slip"]["advice"]}'
             msg.body(advice)
@@ -37,3 +37,7 @@ def bot():
     if not responded:
         msg.body('I only know about famous quotes and cats, sorry!')
     return str(resp)
+
+
+if __name__ == '__main__':
+    app.run()

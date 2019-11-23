@@ -25,6 +25,15 @@ def bot():
         # return a cat pic
         msg.media('https://cataas.com/cat')
         responded = True
+    if 'advice' in incoming_msg:
+        # return advice
+        r= requests.get('https://api.adviceslip.com/advice')
+        if r.status_code==200:
+            data = r.json();
+            advice = f'{data["slip"]["advice"]}'
+            msg.body(advice)
+            print(data)
+        responded = True
     if not responded:
         msg.body('I only know about famous quotes and cats, sorry!')
     return str(resp)

@@ -53,11 +53,12 @@ def bot():
         print(words)
         r = data = requests.get(
             'http://api.openweathermap.org/data/2.5/weather?q=' + words[1] + '&APPID=5305e66d631b9da248c2112c5f48c600')
-        if r.status_codes == 200:
+        if data.json()['cod'] == 200:
             weather = data.json()['weather'][0]['description']
             loc = data.json()['name']
             msg.body("The weather forecast for " + loc + " is: " + weather)
-        msg.body("The Location provided is incorrect")
+        else:
+            msg.body("The Location provided is incorrect")
         responded = True
     if not responded:
         msg.body('Im sorry you asked something I do not know')

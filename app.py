@@ -49,11 +49,13 @@ def bot():
         msg.body(prices[0]+'\n'+prices[1]+'\n'+prices[2])
         responded = True
     if 'weather' in incoming_msg:
+        words = incoming_msg.split(" ")
+        print(words)
         data = requests.get(
-            'http://api.openweathermap.org/data/2.5/weather?q=bangalore&APPID=5305e66d631b9da248c2112c5f48c600')
+            'http://api.openweathermap.org/data/2.5/weather?q='+words[1]+'&APPID=5305e66d631b9da248c2112c5f48c600')
         weather = data.json()['weather'][0]['description']
         loc = data.json()['name']
-        msg.body("The weather forecast for"+loc+ "is: "+weather)
+        msg.body("The weather forecast for "+loc+ " is: "+weather)
         responded=True
     if not responded:
         msg.body('Im sorry you asked something I do not know')
